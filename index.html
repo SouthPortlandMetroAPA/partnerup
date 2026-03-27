@@ -634,6 +634,8 @@ body {
       <h2 style="margin-bottom: calc(var(--spacing) * 4);">Find Your Partner</h2>
       <p class="text-muted mb-4">
         Find partners and teammates for APA NW Challenge events.
+      </p>
+      <p class="text-muted mb-4">
         Enter your email to get started.
       </p>
       <form id="landing-form" autocomplete="off">
@@ -656,8 +658,14 @@ body {
     <div class="card text-center">
       <h2 style="margin-bottom: calc(var(--spacing) * 3);">Check Your Email!</h2>
       <p class="text-muted mb-4">
-        We sent a verification link to <strong id="check-email-addr"></strong>.
+        We sent a verification link to:<br>
+        <strong id="check-email-addr"></strong>
+      </p>
+      <p class="text-muted mb-4">
         Click the link in the email to continue.
+      </p>
+      <p class="text-muted mb-4" style="font-size:0.85rem;">
+        Don't see it? Check your spam or junk folder.
       </p>
       <p class="mt-4">
         <button class="link-btn" id="check-email-retry">Didn't receive it? Try again</button>
@@ -1016,9 +1024,9 @@ body {
     h.textContent = title;
     card.appendChild(h);
 
-    var p = document.createElement('p');
-    p.style.cssText = 'margin:0 0 20px;font-size:0.9rem;color:#333;line-height:1.5;';
-    p.textContent = message;
+    var p = document.createElement('div');
+    p.style.cssText = 'margin:0 0 20px;font-size:0.9rem;color:#333;line-height:1.6;';
+    p.innerHTML = message;
     card.appendChild(p);
 
     var btnRow = document.createElement('div');
@@ -1096,9 +1104,8 @@ body {
     // User must agree to use contact info only for tournament purposes.
     showModal(
       'Usage Agreement',
-      'Contact information shared through PartnerUp is provided solely for ' +
-      'the purpose of finding partners and teammates for APA NW Challenge events. ' +
-      'By continuing, you agree not to use this information for any other purpose.',
+      'Contact information shared through PartnerUp is provided <strong>solely for finding partners and teammates</strong> for APA NW Challenge events.' +
+      '<br><br>By continuing, you agree not to use this information for any other purpose.',
       'I Agree',
       'I Don\'t Agree',
       function onAgree() {
