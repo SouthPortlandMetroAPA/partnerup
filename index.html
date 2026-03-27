@@ -1586,7 +1586,6 @@ body {
     html += '<thead><tr>';
     html += '<th data-col="name">Name ' + sortArrow('name') + '</th>';
     html += '<th data-col="skillLevel">SL ' + sortArrow('skillLevel') + '</th>';
-    html += '<th data-col="preferredContact">Preferred Contact ' + sortArrow('preferredContact') + '</th>';
     html += '</tr></thead>';
     html += '<tbody>';
 
@@ -1595,12 +1594,11 @@ body {
       html += '<tr class="player-row" data-idx="' + idx + '">';
       html += '<td>' + esc(p.name) + '</td>';
       html += '<td><span class="sl-badge">' + esc(String(p.skillLevel)) + '</span></td>';
-      html += '<td><span class="pref-label">' + prefLabel(p.preferredContact) + '</span></td>';
       html += '</tr>';
 
       // Expanded detail row — only visible for the currently expanded player
       if (state.expandedIdx === idx) {
-        html += '<tr class="expanded-row"><td colspan="3">';
+        html += '<tr class="expanded-row"><td colspan="2">';
         html += buildContactDetail(p);
         html += '</td></tr>';
       }
