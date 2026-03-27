@@ -221,6 +221,7 @@ body {
   margin-bottom: calc(var(--spacing) * 4);
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
+  justify-content: center;
 }
 
 .tab-btn {
@@ -290,6 +291,7 @@ body {
 .filters {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: calc(var(--spacing) * 3);
   margin-bottom: calc(var(--spacing) * 4);
   flex-wrap: wrap;
@@ -329,7 +331,7 @@ body {
 }
 
 .player-table th {
-  text-align: left;
+  text-align: center;
   padding: calc(var(--spacing) * 3);
   border-bottom: 2px solid var(--border);
   font-size: 0.85rem;
@@ -352,6 +354,7 @@ body {
 }
 
 .player-table td {
+  text-align: center;
   padding: calc(var(--spacing) * 3);
   border-bottom: 1px solid var(--border);
   font-size: 0.95rem;
@@ -580,10 +583,25 @@ body {
     padding: calc(var(--spacing) * 4);
   }
 
-  .player-table th,
-  .player-table td {
-    padding: calc(var(--spacing) * 2);
-    font-size: 0.85rem;
+  .player-table thead {
+    display: none;
+  }
+  .player-table tr.player-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: calc(var(--spacing) * 2);
+    padding: calc(var(--spacing) * 3) 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .player-table tr.player-row td {
+    border: none;
+    padding: 0;
+    display: inline;
+  }
+  .player-table tr.expanded-row td {
+    display: block;
+    padding: calc(var(--spacing) * 3);
   }
 }
 
