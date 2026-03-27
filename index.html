@@ -1134,7 +1134,14 @@ body {
           });
       },
       function onCancel() {
-        // User didn't agree — stay on landing
+        showModal(
+          'Agreement Required',
+          'You must agree to use contact information solely for APA NW Challenge tournament purposes in order to proceed.',
+          'OK',
+          null,
+          null,
+          null
+        );
       }
     );
 
