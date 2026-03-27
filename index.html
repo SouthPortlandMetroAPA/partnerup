@@ -1,0 +1,1845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PartnerUp — APA NW Challenge</title>
+<style>
+/* ==========================================================================
+   CSS Reset & Base Styles
+   ========================================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --primary: #c2b280;
+  --bg: #f5f0e8;
+  --text: #000000;
+  --card: #ffffff;
+  --muted: #666666;
+  --border: #d4c9a8;
+  --radius: 8px;
+  --spacing: 4px;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ==========================================================================
+   Header
+   ========================================================================== */
+.header {
+  background: var(--primary);
+  padding: calc(var(--spacing) * 4) calc(var(--spacing) * 4);
+  text-align: center;
+}
+
+.header h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0;
+}
+
+.header .subtitle {
+  font-size: 1.1rem;
+  font-style: italic;
+  color: var(--text);
+  margin-top: calc(var(--spacing) * 1);
+}
+
+/* ==========================================================================
+   Layout Container
+   ========================================================================== */
+.container {
+  flex: 1;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: calc(var(--spacing) * 4);
+}
+
+/* ==========================================================================
+   Cards
+   ========================================================================== */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: calc(var(--spacing) * 6);
+  margin-bottom: calc(var(--spacing) * 4);
+}
+
+/* ==========================================================================
+   Buttons
+   ========================================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  min-width: 48px;
+  padding: calc(var(--spacing) * 3) calc(var(--spacing) * 6);
+  font-size: 1rem;
+  font-family: inherit;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+  text-decoration: none;
+  line-height: 1.4;
+}
+
+/* Outline style (default) */
+.btn-outline {
+  background: transparent;
+  border: 2px solid var(--text);
+  color: var(--text);
+}
+
+.btn-outline:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* Gold filled style */
+.btn-gold {
+  background: var(--primary);
+  border: 2px solid var(--primary);
+  color: var(--text);
+  font-weight: 600;
+}
+
+.btn-gold:hover {
+  background: #b5a574;
+  border-color: #b5a574;
+}
+
+/* Small button variant */
+.btn-sm {
+  min-height: 36px;
+  padding: calc(var(--spacing) * 2) calc(var(--spacing) * 4);
+  font-size: 0.875rem;
+}
+
+/* Danger variant */
+.btn-danger {
+  border-color: #c0392b;
+  color: #c0392b;
+  background: transparent;
+}
+
+.btn-danger:hover {
+  background: rgba(192, 57, 43, 0.08);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ==========================================================================
+   Form Elements
+   ========================================================================== */
+.form-group {
+  margin-bottom: calc(var(--spacing) * 4);
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: calc(var(--spacing) * 1);
+  font-size: 0.9rem;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"],
+.form-group select {
+  width: 100%;
+  min-height: 48px;
+  padding: calc(var(--spacing) * 3);
+  font-size: 1rem;
+  font-family: inherit;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--card);
+  color: var(--text);
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 1px;
+}
+
+/* Checkbox and radio groups */
+.checkbox-group,
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 2);
+}
+
+.checkbox-group label,
+.radio-group label {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing) * 2);
+  font-weight: 400;
+  cursor: pointer;
+  min-height: 48px;
+}
+
+.checkbox-group input,
+.radio-group input {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  accent-color: var(--primary);
+}
+
+/* ==========================================================================
+   Tabs
+   ========================================================================== */
+.tab-bar {
+  display: flex;
+  gap: 0;
+  border-bottom: 2px solid var(--border);
+  margin-bottom: calc(var(--spacing) * 4);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.tab-btn {
+  flex-shrink: 0;
+  padding: calc(var(--spacing) * 3) calc(var(--spacing) * 4);
+  font-size: 0.9rem;
+  font-family: inherit;
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-weight: 500;
+  white-space: nowrap;
+  min-height: 48px;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.tab-btn:hover {
+  color: var(--text);
+}
+
+.tab-btn.active {
+  color: var(--text);
+  border-bottom-color: var(--primary);
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   Profile Summary Card (Dashboard header)
+   ========================================================================== */
+.profile-summary {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing) * 3);
+  flex-wrap: wrap;
+}
+
+.profile-summary .name {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.sl-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--primary);
+  color: var(--text);
+  font-weight: 700;
+  font-size: 0.85rem;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.profile-actions {
+  margin-left: auto;
+  display: flex;
+  gap: calc(var(--spacing) * 2);
+  flex-wrap: wrap;
+}
+
+/* ==========================================================================
+   Filters
+   ========================================================================== */
+.filters {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing) * 3);
+  margin-bottom: calc(var(--spacing) * 4);
+  flex-wrap: wrap;
+}
+
+.filters label {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing) * 2);
+  font-size: 0.9rem;
+  cursor: pointer;
+  min-height: 48px;
+}
+
+.filters input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--primary);
+}
+
+.filters select {
+  min-height: 48px;
+  padding: calc(var(--spacing) * 2) calc(var(--spacing) * 3);
+  font-size: 0.9rem;
+  font-family: inherit;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--card);
+}
+
+/* ==========================================================================
+   Player Directory Table
+   ========================================================================== */
+.player-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.player-table th {
+  text-align: left;
+  padding: calc(var(--spacing) * 3);
+  border-bottom: 2px solid var(--border);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--muted);
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.player-table th:hover {
+  color: var(--text);
+}
+
+.player-table th .sort-arrow {
+  margin-left: calc(var(--spacing) * 1);
+  font-size: 0.7rem;
+}
+
+.player-table td {
+  padding: calc(var(--spacing) * 3);
+  border-bottom: 1px solid var(--border);
+  font-size: 0.95rem;
+}
+
+.player-table tr.player-row {
+  cursor: pointer;
+  transition: background 0.1s;
+}
+
+.player-table tr.player-row:hover {
+  background: rgba(194, 178, 128, 0.1);
+}
+
+/* Expanded row */
+.player-table tr.expanded-row td {
+  padding: calc(var(--spacing) * 4);
+  background: #faf8f3;
+  border-bottom: 2px solid var(--border);
+}
+
+.contact-detail {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 2);
+}
+
+.contact-detail a {
+  color: var(--text);
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+.contact-detail a:hover {
+  color: var(--primary);
+}
+
+.preferred-badge {
+  display: inline-block;
+  background: var(--primary);
+  color: var(--text);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-left: calc(var(--spacing) * 2);
+}
+
+.event-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--spacing) * 2);
+  margin-top: calc(var(--spacing) * 2);
+}
+
+.event-pill {
+  display: inline-block;
+  font-size: 0.75rem;
+  padding: 2px 10px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--muted);
+}
+
+/* Preferred contact label in table column */
+.pref-label {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* ==========================================================================
+   Modals
+   ========================================================================== */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: calc(var(--spacing) * 4);
+}
+
+.modal-overlay.visible {
+  display: flex;
+}
+
+.modal {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: calc(var(--spacing) * 6);
+  max-width: 420px;
+  width: 100%;
+}
+
+.modal h3 {
+  margin-bottom: calc(var(--spacing) * 3);
+  font-size: 1.1rem;
+}
+
+.modal p {
+  margin-bottom: calc(var(--spacing) * 4);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.modal-actions {
+  display: flex;
+  gap: calc(var(--spacing) * 3);
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+.footer {
+  text-align: center;
+  padding: calc(var(--spacing) * 6) calc(var(--spacing) * 4);
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.footer a {
+  color: var(--muted);
+}
+
+/* ==========================================================================
+   Utility
+   ========================================================================== */
+.text-center { text-align: center; }
+.text-muted { color: var(--muted); }
+.text-sm { font-size: 0.875rem; }
+.mt-2 { margin-top: calc(var(--spacing) * 2); }
+.mt-4 { margin-top: calc(var(--spacing) * 4); }
+.mb-4 { margin-bottom: calc(var(--spacing) * 4); }
+
+.hidden { display: none !important; }
+
+.link-btn {
+  background: none;
+  border: none;
+  color: var(--muted);
+  text-decoration: underline;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  padding: 0;
+}
+
+.link-btn:hover {
+  color: var(--text);
+}
+
+/* Loading spinner */
+.spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid var(--border);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  vertical-align: middle;
+  margin-left: calc(var(--spacing) * 2);
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Error message */
+.error-msg {
+  color: #c0392b;
+  font-size: 0.9rem;
+  margin-top: calc(var(--spacing) * 2);
+}
+
+/* Empty state */
+.empty-state {
+  text-align: center;
+  padding: calc(var(--spacing) * 8) calc(var(--spacing) * 4);
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+/* ==========================================================================
+   Responsive: Mobile (< 768px)
+   ========================================================================== */
+@media (max-width: 767px) {
+  .container {
+    padding: calc(var(--spacing) * 3);
+  }
+
+  .card {
+    padding: calc(var(--spacing) * 4);
+  }
+
+  .profile-summary {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .profile-actions {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .profile-actions .btn {
+    flex: 1;
+  }
+
+  .tab-bar {
+    gap: 0;
+  }
+
+  .tab-btn {
+    padding: calc(var(--spacing) * 3) calc(var(--spacing) * 3);
+    font-size: 0.8rem;
+  }
+
+  .modal {
+    padding: calc(var(--spacing) * 4);
+  }
+
+  .player-table th,
+  .player-table td {
+    padding: calc(var(--spacing) * 2);
+    font-size: 0.85rem;
+  }
+}
+
+/* ==========================================================================
+   Responsive: Tablet (768px - 1199px)
+   ========================================================================== */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .container {
+    max-width: 600px;
+  }
+}
+
+/* ==========================================================================
+   Responsive: Desktop (>= 1200px)
+   ========================================================================== */
+@media (min-width: 1200px) {
+  .container {
+    max-width: 700px;
+  }
+
+  .player-table th,
+  .player-table td {
+    padding: calc(var(--spacing) * 4);
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ======================================================================
+     Header — solid warm gold background, no gradient
+     ====================================================================== -->
+<header class="header">
+  <h1>APA NW Challenge</h1>
+  <div class="subtitle">PartnerUp</div>
+</header>
+
+<!-- ======================================================================
+     Main Content Container
+     ====================================================================== -->
+<main class="container">
+
+  <!-- ====================================================================
+       State 1: Landing (not logged in)
+       ==================================================================== -->
+  <div id="state-landing" class="hidden">
+    <div class="card text-center">
+      <h2 style="margin-bottom: calc(var(--spacing) * 4);">Find Your Partner</h2>
+      <p class="text-muted mb-4">
+        Find partners and teammates for APA NW Challenge events.
+        Enter your email to get started.
+      </p>
+      <form id="landing-form" autocomplete="off">
+        <div class="form-group" style="max-width: 360px; margin: 0 auto calc(var(--spacing) * 4);">
+          <input type="email" id="landing-email" placeholder="you@example.com"
+                 required autocomplete="email" aria-label="Email address">
+        </div>
+        <button type="submit" class="btn btn-gold" id="landing-submit">
+          Send Verification Link
+        </button>
+        <div id="landing-error" class="error-msg hidden"></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ====================================================================
+       State 2: Check Your Email
+       ==================================================================== -->
+  <div id="state-check-email" class="hidden">
+    <div class="card text-center">
+      <h2 style="margin-bottom: calc(var(--spacing) * 3);">Check Your Email!</h2>
+      <p class="text-muted mb-4">
+        We sent a verification link to <strong id="check-email-addr"></strong>.
+        Click the link in the email to continue.
+      </p>
+      <p class="mt-4">
+        <button class="link-btn" id="check-email-retry">Didn't receive it? Try again</button>
+      </p>
+    </div>
+  </div>
+
+  <!-- ====================================================================
+       State 3: Profile Form (logged in, no/incomplete profile)
+       ==================================================================== -->
+  <div id="state-profile" class="hidden">
+    <div class="card">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: calc(var(--spacing) * 4);">
+        <h2>Your Profile</h2>
+        <button class="btn btn-outline btn-sm" id="profile-logout">Logout</button>
+      </div>
+      <form id="profile-form" autocomplete="off">
+
+        <!-- Full Name -->
+        <div class="form-group">
+          <label for="prof-name">Full Name <span style="color: #c0392b;">*</span></label>
+          <input type="text" id="prof-name" required placeholder="Your full name">
+        </div>
+
+        <!-- Skill Level -->
+        <div class="form-group">
+          <label for="prof-sl">Skill Level <span style="color: #c0392b;">*</span></label>
+          <select id="prof-sl" required>
+            <option value="">Select...</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+          </select>
+        </div>
+
+        <!-- Phone Number -->
+        <div class="form-group">
+          <label for="prof-phone">Phone Number <span id="phone-required-star" class="hidden" style="color: #c0392b;">*</span></label>
+          <input type="tel" id="prof-phone" placeholder="(555) 555-5555">
+          <small class="text-muted text-sm">Required if Phone Call or Text Message is selected below.</small>
+        </div>
+
+        <!-- Contact Methods (checkboxes) -->
+        <div class="form-group">
+          <label>Contact Methods (share with other players)</label>
+          <div class="checkbox-group">
+            <label>
+              <input type="checkbox" id="prof-contact-email" value="email"> Email
+            </label>
+            <label>
+              <input type="checkbox" id="prof-contact-phone" value="phone"> Phone Call
+            </label>
+            <label>
+              <input type="checkbox" id="prof-contact-text" value="text"> Text Message
+            </label>
+          </div>
+        </div>
+
+        <!-- Preferred Contact Method (radio) -->
+        <div class="form-group">
+          <label>Preferred Contact Method <span style="color: #c0392b;">*</span></label>
+          <div class="radio-group">
+            <label>
+              <input type="radio" name="prof-preferred" value="email"> Email
+            </label>
+            <label>
+              <input type="radio" name="prof-preferred" value="phone"> Phone
+            </label>
+            <label>
+              <input type="radio" name="prof-preferred" value="text"> Text
+            </label>
+          </div>
+        </div>
+
+        <!-- Events (checkboxes) -->
+        <div class="form-group">
+          <label>Events <span style="color: #c0392b;">*</span></label>
+          <div class="checkbox-group">
+            <label>
+              <input type="checkbox" class="event-cb" value="Early Bird Scotch Doubles"> Early Bird Scotch Doubles
+            </label>
+            <label>
+              <input type="checkbox" class="event-cb" value="Weekender Scotch Doubles"> Weekender Scotch Doubles
+            </label>
+            <label>
+              <input type="checkbox" class="event-cb" value="3-Person Team"> 3-Person Team
+            </label>
+          </div>
+        </div>
+
+        <div id="profile-error" class="error-msg hidden"></div>
+
+        <div style="display: flex; gap: calc(var(--spacing) * 3); margin-top: calc(var(--spacing) * 4);">
+          <button type="submit" class="btn btn-gold" id="profile-save">Save Profile</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ====================================================================
+       State 4: Dashboard (logged in, has complete profile)
+       ==================================================================== -->
+  <div id="state-dashboard" class="hidden">
+
+    <!-- Profile summary card -->
+    <div class="card" id="dash-profile-card">
+      <div class="profile-summary">
+        <span class="name" id="dash-name"></span>
+        <span class="sl-badge" id="dash-sl"></span>
+        <div class="profile-actions">
+          <button class="btn btn-outline btn-sm" id="dash-edit">Edit Profile</button>
+          <button class="btn btn-danger btn-sm" id="dash-delete">Delete Profile</button>
+          <button class="btn btn-outline btn-sm" id="dash-logout">Logout</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab bar (populated dynamically based on user's events) -->
+    <div class="tab-bar" id="dash-tabs"></div>
+
+    <!-- Filters (rendered dynamically per tab type) -->
+    <div class="filters" id="dash-filters"></div>
+
+    <!-- Player directory table container -->
+    <div id="dash-table-wrap"></div>
+
+    <!-- Loading indicator for player list -->
+    <div id="dash-loading" class="text-center mt-4 hidden">
+      <span class="spinner"></span> Loading players...
+    </div>
+  </div>
+
+</main>
+
+<!-- ======================================================================
+     Consent Modal (shown before first profile save)
+     ====================================================================== -->
+<div class="modal-overlay" id="modal-consent">
+  <div class="modal">
+    <h3>Share Your Contact Info</h3>
+    <p>
+      By continuing, you agree to share your selected contact info with other
+      APA NW Challenge participants looking for partners.
+    </p>
+    <div class="modal-actions">
+      <button class="btn btn-outline" id="consent-cancel">Cancel</button>
+      <button class="btn btn-gold" id="consent-agree">I Agree</button>
+    </div>
+  </div>
+</div>
+
+<!-- ======================================================================
+     Usage Agreement Modal (shown once on first directory view)
+     ====================================================================== -->
+<div class="modal-overlay" id="modal-usage">
+  <div class="modal">
+    <h3>Contact Information Policy</h3>
+    <p>
+      Contact information shown here is shared solely for finding APA NW Challenge
+      partners. Do not use it for any other purpose.
+    </p>
+    <div class="modal-actions">
+      <button class="btn btn-gold" id="usage-agree">I Understand</button>
+    </div>
+  </div>
+</div>
+
+<!-- ======================================================================
+     Delete Confirmation Modal
+     ====================================================================== -->
+<div class="modal-overlay" id="modal-delete">
+  <div class="modal">
+    <h3>Delete Your Profile?</h3>
+    <p>
+      This will remove your profile and contact info from the player directory.
+      You can always sign up again later.
+    </p>
+    <div class="modal-actions">
+      <button class="btn btn-outline" id="delete-cancel">Cancel</button>
+      <button class="btn btn-danger" id="delete-confirm">Delete Profile</button>
+    </div>
+  </div>
+</div>
+
+<!-- ======================================================================
+     Support Footer (visible on all states)
+     ====================================================================== -->
+<footer class="footer">
+  Need help? Email
+  <a href="mailto:soldans@southportlandmetroapa.com">soldans@southportlandmetroapa.com</a>
+  or call <a href="tel:+19712389587">(971) 238-9587</a>
+</footer>
+
+<!-- ======================================================================
+     Application JavaScript — all logic inline in a single IIFE
+     ====================================================================== -->
+<script>
+(function() {
+  'use strict';
+
+  // ==========================================================================
+  // Constants
+  // ==========================================================================
+
+  /** API endpoint — Cloudflare Worker that proxies to Google Apps Script */
+  var API_URL = 'https://partnerup.spmapa.workers.dev';
+
+  /** The three tournament events, in display order */
+  var EVENTS = [
+    'Early Bird Scotch Doubles',
+    'Weekender Scotch Doubles',
+    '3-Person Team'
+  ];
+
+  /** Short labels for tab buttons to save horizontal space */
+  var EVENT_SHORT = {
+    'Early Bird Scotch Doubles': 'Early Bird',
+    'Weekender Scotch Doubles': 'Weekender',
+    '3-Person Team': '3-Person Team'
+  };
+
+  /** localStorage key names */
+  var LS_EMAIL    = 'partnerup_email';
+  var LS_AGREED   = 'partnerup_agreed';
+  var LS_LAST_TAB = 'partnerup_lastTab';
+
+  // ==========================================================================
+  // Application State
+  // ==========================================================================
+
+  var state = {
+    email: null,            // verified email address (string or null)
+    profile: null,          // user's profile object from getProfile, or null
+    players: [],            // array of other players from getPlayerList
+    activeTab: null,        // current active tab event name
+    sortCol: 'name',        // column key being sorted: 'name' | 'skillLevel' | 'preferredContact'
+    sortDir: 'asc',         // sort direction: 'asc' | 'desc'
+    expandedIdx: -1         // index of the currently expanded player row (-1 = none)
+  };
+
+  // ==========================================================================
+  // DOM Element References
+  // ==========================================================================
+
+  var $landing       = document.getElementById('state-landing');
+  var $checkEmail    = document.getElementById('state-check-email');
+  var $profile       = document.getElementById('state-profile');
+  var $dashboard     = document.getElementById('state-dashboard');
+
+  var $landingForm   = document.getElementById('landing-form');
+  var $landingEmail  = document.getElementById('landing-email');
+  var $landingSubmit = document.getElementById('landing-submit');
+  var $landingError  = document.getElementById('landing-error');
+
+  var $checkAddr     = document.getElementById('check-email-addr');
+  var $checkRetry    = document.getElementById('check-email-retry');
+
+  var $profileForm   = document.getElementById('profile-form');
+  var $profileError  = document.getElementById('profile-error');
+  var $profileLogout = document.getElementById('profile-logout');
+
+  var $dashName      = document.getElementById('dash-name');
+  var $dashSL        = document.getElementById('dash-sl');
+  var $dashTabs      = document.getElementById('dash-tabs');
+  var $dashFilters   = document.getElementById('dash-filters');
+  var $dashTableWrap = document.getElementById('dash-table-wrap');
+  var $dashLoading   = document.getElementById('dash-loading');
+  var $dashEdit      = document.getElementById('dash-edit');
+  var $dashDelete    = document.getElementById('dash-delete');
+  var $dashLogout    = document.getElementById('dash-logout');
+
+  var $modalConsent  = document.getElementById('modal-consent');
+  var $consentCancel = document.getElementById('consent-cancel');
+  var $consentAgree  = document.getElementById('consent-agree');
+
+  var $modalUsage    = document.getElementById('modal-usage');
+  var $usageAgree    = document.getElementById('usage-agree');
+
+  var $modalDelete   = document.getElementById('modal-delete');
+  var $deleteCancel  = document.getElementById('delete-cancel');
+  var $deleteConfirm = document.getElementById('delete-confirm');
+
+  // ==========================================================================
+  // XSS Protection
+  // ==========================================================================
+
+  /**
+   * Escapes HTML special characters to prevent XSS injection when
+   * inserting user-provided text into innerHTML.
+   *
+   * @param {string} str - Raw untrusted string
+   * @returns {string} HTML-safe escaped string
+   */
+  function esc(str) {
+    var div = document.createElement('div');
+    div.appendChild(document.createTextNode(String(str || '')));
+    return div.innerHTML;
+  }
+
+  // ==========================================================================
+  // API Helper
+  // ==========================================================================
+
+  /**
+   * Sends a POST request to the PartnerUp API.
+   *
+   * The API uses Content-Type: text/plain due to the Google Apps Script
+   * redirect quirk — GAS redirects POST requests, and browsers strip
+   * non-simple content types on redirect. Using text/plain with a JSON
+   * body string avoids the CORS preflight issue.
+   *
+   * @param {string} action  - API action name (e.g. 'verifyToken', 'getProfile')
+   * @param {Object} payload - Additional request data (merged with action)
+   * @returns {Promise<Object>} Parsed JSON response from the API
+   */
+  function api(action, payload) {
+    var body = Object.assign({ action: action }, payload || {});
+    return fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      redirect: 'follow',
+      body: JSON.stringify(body)
+    })
+    .then(function(res) { return res.json(); });
+  }
+
+  // ==========================================================================
+  // View Management
+  // ==========================================================================
+
+  /**
+   * Shows exactly one of the four main state views and hides the rest.
+   *
+   * @param {'landing'|'checkEmail'|'profile'|'dashboard'} view - View to show
+   */
+  /**
+   * Generic modal dialog. Shows a centered overlay with title, message,
+   * confirm button, and cancel button. Calls onConfirm or onCancel.
+   */
+  function showModal(title, message, confirmText, cancelText, onConfirm, onCancel) {
+    // Create overlay
+    var overlay = document.createElement('div');
+    overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:9999;padding:16px;';
+
+    var card = document.createElement('div');
+    card.style.cssText = 'background:#fff;border-radius:8px;padding:24px;max-width:400px;width:100%;box-shadow:0 8px 32px rgba(0,0,0,0.2);';
+
+    var h = document.createElement('h3');
+    h.style.cssText = 'margin:0 0 12px;font-size:1.1rem;color:#000;';
+    h.textContent = title;
+    card.appendChild(h);
+
+    var p = document.createElement('p');
+    p.style.cssText = 'margin:0 0 20px;font-size:0.9rem;color:#333;line-height:1.5;';
+    p.textContent = message;
+    card.appendChild(p);
+
+    var btnRow = document.createElement('div');
+    btnRow.style.cssText = 'display:flex;gap:12px;justify-content:flex-end;';
+
+    if (cancelText) {
+      var cancelBtn = document.createElement('button');
+      cancelBtn.textContent = cancelText;
+      cancelBtn.style.cssText = 'padding:10px 20px;border:1px solid #000;background:transparent;border-radius:8px;font-size:0.9rem;cursor:pointer;';
+      cancelBtn.addEventListener('click', function() {
+        document.body.removeChild(overlay);
+        if (onCancel) onCancel();
+      });
+      btnRow.appendChild(cancelBtn);
+    }
+
+    var confirmBtn = document.createElement('button');
+    confirmBtn.textContent = confirmText;
+    confirmBtn.style.cssText = 'padding:10px 20px;border:none;background:#c2b280;color:#000;border-radius:8px;font-weight:600;font-size:0.9rem;cursor:pointer;';
+    confirmBtn.addEventListener('click', function() {
+      document.body.removeChild(overlay);
+      if (onConfirm) onConfirm();
+    });
+    btnRow.appendChild(confirmBtn);
+
+    card.appendChild(btnRow);
+    overlay.appendChild(card);
+    document.body.appendChild(overlay);
+  }
+
+  function showView(view) {
+    $landing.classList.toggle('hidden', view !== 'landing');
+    $checkEmail.classList.toggle('hidden', view !== 'checkEmail');
+    $profile.classList.toggle('hidden', view !== 'profile');
+    $dashboard.classList.toggle('hidden', view !== 'dashboard');
+  }
+
+  // ==========================================================================
+  // Error Display Helpers
+  // ==========================================================================
+
+  /**
+   * Shows an error message in the specified container element.
+   *
+   * @param {HTMLElement} el  - The error display element
+   * @param {string}      msg - Error message text
+   */
+  function showError(el, msg) {
+    el.textContent = msg;
+    el.classList.remove('hidden');
+  }
+
+  /**
+   * Hides an error message element and clears its text.
+   *
+   * @param {HTMLElement} el - The error display element
+   */
+  function hideError(el) {
+    el.textContent = '';
+    el.classList.add('hidden');
+  }
+
+  // ==========================================================================
+  // State 1: Landing — email verification request
+  // ==========================================================================
+
+  $landingForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var email = $landingEmail.value.trim().toLowerCase();
+    if (!email) return;
+
+    hideError($landingError);
+
+    // Show usage agreement modal BEFORE sending verification email.
+    // User must agree to use contact info only for tournament purposes.
+    showModal(
+      'Usage Agreement',
+      'Contact information shared through PartnerUp is provided solely for ' +
+      'the purpose of finding partners and teammates for APA NW Challenge events. ' +
+      'By continuing, you agree not to use this information for any other purpose.',
+      'I Agree',
+      'I Don\'t Agree',
+      function onAgree() {
+        // User agreed — now send verification email
+        $landingSubmit.disabled = true;
+        $landingSubmit.textContent = 'Sending...';
+
+        api('requestVerification', { email: email })
+          .then(function(res) {
+            $landingSubmit.disabled = false;
+            $landingSubmit.textContent = 'Send Verification Link';
+            if (res.success) {
+              // Store agreement so we don't show it again on this device
+              localStorage.setItem('partnerup_agreed', 'true');
+              // Transition to State 2 — Check Your Email
+              $checkAddr.textContent = email;
+              showView('checkEmail');
+            } else {
+              showError($landingError, res.error || 'Something went wrong. Please try again.');
+            }
+          })
+          .catch(function() {
+            $landingSubmit.disabled = false;
+            $landingSubmit.textContent = 'Send Verification Link';
+            showError($landingError, 'Network error. Please try again.');
+          });
+      },
+      function onCancel() {
+        // User didn't agree — stay on landing
+      }
+    );
+
+  });
+
+  // ==========================================================================
+  // State 2: Check Your Email — retry link
+  // ==========================================================================
+
+  $checkRetry.addEventListener('click', function() {
+    showView('landing');
+  });
+
+  // ==========================================================================
+  // State 3: Profile Form
+  // ==========================================================================
+
+  /**
+   * Toggles the red asterisk on the Phone Number field based on whether
+   * the Phone Call or Text Message contact method checkboxes are checked.
+   * Phone is required when either of those methods is selected.
+   */
+  function updatePhoneRequired() {
+    var phoneChecked = document.getElementById('prof-contact-phone').checked;
+    var textChecked = document.getElementById('prof-contact-text').checked;
+    var star = document.getElementById('phone-required-star');
+    star.classList.toggle('hidden', !(phoneChecked || textChecked));
+  }
+
+  document.getElementById('prof-contact-phone').addEventListener('change', updatePhoneRequired);
+  document.getElementById('prof-contact-text').addEventListener('change', updatePhoneRequired);
+
+  /** Holds profile data between form submit and consent modal confirmation */
+  var pendingSaveData = null;
+
+  /**
+   * Profile form submission handler.
+   * Validates all fields client-side, then opens the consent modal.
+   * The actual API call happens when the user clicks "I Agree" in the modal.
+   */
+  $profileForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    hideError($profileError);
+
+    // Gather form values
+    var name = document.getElementById('prof-name').value.trim();
+    var sl = document.getElementById('prof-sl').value;
+    var phone = document.getElementById('prof-phone').value.trim();
+    var contactEmail = document.getElementById('prof-contact-email').checked;
+    var contactPhone = document.getElementById('prof-contact-phone').checked;
+    var contactText = document.getElementById('prof-contact-text').checked;
+    var preferredEl = document.querySelector('input[name="prof-preferred"]:checked');
+    var preferred = preferredEl ? preferredEl.value : '';
+
+    // Gather selected events
+    var events = [];
+    document.querySelectorAll('.event-cb').forEach(function(cb) {
+      if (cb.checked) events.push(cb.value);
+    });
+
+    // Client-side validation
+    if (!name) return showError($profileError, 'Please enter your name.');
+    if (!sl) return showError($profileError, 'Please select your skill level.');
+    if (!preferred) return showError($profileError, 'Please select a preferred contact method.');
+    if (events.length === 0) return showError($profileError, 'Please select at least one event.');
+    if ((contactPhone || contactText) && !phone) {
+      return showError($profileError, 'Phone number is required when Phone Call or Text Message is selected.');
+    }
+
+    // Store data for after consent
+    pendingSaveData = {
+      name: name,
+      skillLevel: parseInt(sl, 10),
+      phone: phone,
+      contactEmail: contactEmail,
+      contactPhone: contactPhone,
+      contactText: contactText,
+      preferredContact: preferred,
+      events: events
+    };
+
+    // Show consent modal before saving
+    $modalConsent.classList.add('visible');
+  });
+
+  /** Consent modal: Cancel — close modal, discard pending data */
+  $consentCancel.addEventListener('click', function() {
+    $modalConsent.classList.remove('visible');
+    pendingSaveData = null;
+  });
+
+  /** Consent modal: I Agree — proceed with saving the profile to the API */
+  $consentAgree.addEventListener('click', function() {
+    $modalConsent.classList.remove('visible');
+    if (!pendingSaveData) return;
+
+    var saveBtn = document.getElementById('profile-save');
+    saveBtn.disabled = true;
+    saveBtn.textContent = 'Saving...';
+
+    api('saveProfile', { email: state.email, profileData: pendingSaveData })
+      .then(function(res) {
+        saveBtn.disabled = false;
+        saveBtn.textContent = 'Save Profile';
+        if (res.success) {
+          // Reload profile from server and transition to dashboard
+          loadProfileAndProceed();
+        } else {
+          showError($profileError, res.error || 'Failed to save. Please try again.');
+        }
+      })
+      .catch(function() {
+        saveBtn.disabled = false;
+        saveBtn.textContent = 'Save Profile';
+        showError($profileError, 'Network error. Please try again.');
+      });
+
+    pendingSaveData = null;
+  });
+
+  /** Profile form: Logout button */
+  $profileLogout.addEventListener('click', logout);
+
+  // ==========================================================================
+  // State 4: Dashboard
+  // ==========================================================================
+
+  /** Edit Profile button — navigate back to profile form with data pre-filled */
+  $dashEdit.addEventListener('click', function() {
+    populateProfileForm(state.profile);
+    showView('profile');
+  });
+
+  /** Delete Profile button — show the delete confirmation modal */
+  $dashDelete.addEventListener('click', function() {
+    $modalDelete.classList.add('visible');
+  });
+
+  /** Delete modal: Cancel */
+  $deleteCancel.addEventListener('click', function() {
+    $modalDelete.classList.remove('visible');
+  });
+
+  /** Delete modal: Confirm — call deleteProfile API, then reset to profile form */
+  $deleteConfirm.addEventListener('click', function() {
+    $modalDelete.classList.remove('visible');
+    $deleteConfirm.disabled = true;
+
+    api('deleteProfile', { email: state.email })
+      .then(function(res) {
+        $deleteConfirm.disabled = false;
+        if (res.success) {
+          state.profile = null;
+          state.players = [];
+          showView('profile');
+          clearProfileForm();
+        }
+      })
+      .catch(function() {
+        $deleteConfirm.disabled = false;
+      });
+  });
+
+  /** Dashboard: Logout button */
+  $dashLogout.addEventListener('click', logout);
+
+  // ==========================================================================
+  // Dashboard: Tab Bar
+  // ==========================================================================
+
+  /**
+   * Builds the tab bar dynamically based on which events the user has
+   * opted into. Only shows tabs for the user's selected events.
+   * Restores the last active tab from localStorage if available.
+   */
+  function buildTabs() {
+    $dashTabs.innerHTML = '';
+    if (!state.profile) return;
+
+    var userEvents = state.profile.events || [];
+    var lastTab = localStorage.getItem(LS_LAST_TAB);
+    var hasLastTab = false;
+
+    // Create a tab button for each event the user opted into
+    userEvents.forEach(function(evt) {
+      var btn = document.createElement('button');
+      btn.className = 'tab-btn';
+      btn.textContent = EVENT_SHORT[evt] || evt;
+      btn.setAttribute('data-tab', evt);
+      btn.addEventListener('click', function() { switchTab(evt); });
+      $dashTabs.appendChild(btn);
+      if (lastTab === evt) hasLastTab = true;
+    });
+
+    // Activate the remembered tab, or default to the first event tab
+    if (hasLastTab) {
+      switchTab(lastTab);
+    } else if (userEvents.length > 0) {
+      switchTab(userEvents[0]);
+    }
+  }
+
+  /**
+   * Switches to a specific tab, updates the active state, and re-renders
+   * the filters and player table for that event.
+   *
+   * @param {string} tabName - The event name to switch to
+   */
+  function switchTab(tabName) {
+    state.activeTab = tabName;
+    state.expandedIdx = -1;
+    localStorage.setItem(LS_LAST_TAB, tabName);
+
+    // Update visual active state on tab buttons
+    $dashTabs.querySelectorAll('.tab-btn').forEach(function(btn) {
+      btn.classList.toggle('active', btn.getAttribute('data-tab') === tabName);
+    });
+
+    renderFilters();
+    renderTable();
+  }
+
+  // ==========================================================================
+  // Dashboard: Filter Controls
+  // ==========================================================================
+
+  /** Whether the Scotch Doubles eligible partner filter is active (default: on) */
+  var scotchEligibleOnly = true;
+
+  /** Max SL filter value for 3-Person Team tab (0 = show all) */
+  var teamMaxSL = 0;
+
+  /**
+   * Renders the appropriate filter controls for the current tab.
+   * - Scotch Doubles tabs: checkbox for eligible partners (combined SL <= 11)
+   * - 3-Person Team tab: dropdown for max skill level
+   */
+  function renderFilters() {
+    $dashFilters.innerHTML = '';
+    var tab = state.activeTab;
+
+    if (tab === 'Early Bird Scotch Doubles' || tab === 'Weekender Scotch Doubles') {
+      // Scotch Doubles: eligible partners checkbox
+      var lbl = document.createElement('label');
+      var cb = document.createElement('input');
+      cb.type = 'checkbox';
+      cb.checked = scotchEligibleOnly;
+      cb.addEventListener('change', function() {
+        scotchEligibleOnly = cb.checked;
+        renderTable();
+      });
+      lbl.appendChild(cb);
+      lbl.appendChild(document.createTextNode(' Eligible partners only (combined SL \u2264 11)'));
+      $dashFilters.appendChild(lbl);
+
+    } else if (tab === '3-Person Team') {
+      // 3-Person Team: max skill level dropdown
+      var lbl2 = document.createElement('label');
+      lbl2.textContent = 'Max skill level: ';
+      var sel = document.createElement('select');
+      var optAll = document.createElement('option');
+      optAll.value = '0';
+      optAll.textContent = 'All';
+      sel.appendChild(optAll);
+      for (var i = 1; i <= 9; i++) {
+        var opt = document.createElement('option');
+        opt.value = String(i);
+        opt.textContent = String(i);
+        sel.appendChild(opt);
+      }
+      sel.value = String(teamMaxSL);
+      sel.addEventListener('change', function() {
+        teamMaxSL = parseInt(sel.value, 10);
+        renderTable();
+      });
+      lbl2.appendChild(sel);
+      $dashFilters.appendChild(lbl2);
+    }
+  }
+
+  // ==========================================================================
+  // Dashboard: Player Directory Table
+  // ==========================================================================
+
+  /**
+   * Applies event and filter logic to produce the visible player list.
+   * Filters by current tab event, then applies scotch doubles eligibility
+   * or 3-person team max SL filter as appropriate.
+   *
+   * @returns {Object[]} Filtered and sorted array of player objects
+   */
+  function getFilteredPlayers() {
+    var tab = state.activeTab;
+    if (!tab) return [];
+
+    // Step 1: Only players who opted into the current tab's event
+    var filtered = state.players.filter(function(p) {
+      return p.events && p.events.indexOf(tab) !== -1;
+    });
+
+    // Step 2: Apply Scotch Doubles combined SL filter
+    if ((tab === 'Early Bird Scotch Doubles' || tab === 'Weekender Scotch Doubles')
+        && scotchEligibleOnly && state.profile) {
+      var mySL = state.profile.skillLevel || 0;
+      filtered = filtered.filter(function(p) {
+        return (p.skillLevel + mySL) <= 11;
+      });
+    }
+
+    // Step 3: Apply 3-Person Team max SL filter
+    if (tab === '3-Person Team' && teamMaxSL > 0) {
+      filtered = filtered.filter(function(p) {
+        return p.skillLevel <= teamMaxSL;
+      });
+    }
+
+    // Step 4: Sort by the active column and direction
+    var col = state.sortCol;
+    var dir = state.sortDir === 'asc' ? 1 : -1;
+    filtered.sort(function(a, b) {
+      var va, vb;
+      if (col === 'name') {
+        va = (a.name || '').toLowerCase();
+        vb = (b.name || '').toLowerCase();
+        return va < vb ? -dir : va > vb ? dir : 0;
+      } else if (col === 'skillLevel') {
+        return (a.skillLevel - b.skillLevel) * dir;
+      } else if (col === 'preferredContact') {
+        va = (a.preferredContact || '').toLowerCase();
+        vb = (b.preferredContact || '').toLowerCase();
+        return va < vb ? -dir : va > vb ? dir : 0;
+      }
+      return 0;
+    });
+
+    return filtered;
+  }
+
+  /**
+   * Returns the sort direction arrow HTML for a column header, or empty
+   * string if that column is not the active sort column.
+   *
+   * @param {string} col - Column key
+   * @returns {string} Arrow indicator HTML
+   */
+  function sortArrow(col) {
+    if (state.sortCol !== col) return '';
+    return '<span class="sort-arrow">' + (state.sortDir === 'asc' ? '\u25B2' : '\u25BC') + '</span>';
+  }
+
+  /**
+   * Handles a click on a column header to toggle sort direction, or
+   * switch to a new sort column (defaulting to ascending).
+   *
+   * @param {string} col - Column key that was clicked
+   */
+  function toggleSort(col) {
+    if (state.sortCol === col) {
+      state.sortDir = state.sortDir === 'asc' ? 'desc' : 'asc';
+    } else {
+      state.sortCol = col;
+      state.sortDir = 'asc';
+    }
+    state.expandedIdx = -1;
+    renderTable();
+  }
+
+  /**
+   * Converts a preferred contact value to a human-readable label.
+   *
+   * @param {string} pref - 'email', 'phone', or 'text'
+   * @returns {string} Display label
+   */
+  function prefLabel(pref) {
+    if (pref === 'email') return 'Email';
+    if (pref === 'phone') return 'Phone';
+    if (pref === 'text') return 'Text';
+    return esc(pref);
+  }
+
+  /**
+   * Builds the expanded accordion content for a player row, showing
+   * all available contact methods with clickable links, a preferred
+   * badge on the preferred method, and event pills.
+   *
+   * @param {Object} player - Player data object
+   * @returns {string} HTML string (all user data is escaped)
+   */
+  function buildContactDetail(player) {
+    var html = '<div class="contact-detail">';
+    var pref = player.preferredContact;
+
+    // Email link (only if player opted to share email)
+    if (player.contactEmail && player.email) {
+      html += '<div>';
+      html += '<a href="mailto:' + esc(player.email) + '">' + esc(player.email) + '</a>';
+      if (pref === 'email') html += ' <span class="preferred-badge">\u2605 Preferred</span>';
+      html += '</div>';
+    }
+
+    // Phone call link (only if player opted to share phone)
+    if (player.contactPhone && player.phone) {
+      var cleanPhone = player.phone.replace(/[^0-9+]/g, '');
+      html += '<div>';
+      html += '<a href="tel:' + esc(cleanPhone) + '">' + esc(player.phone) + '</a> (call)';
+      if (pref === 'phone') html += ' <span class="preferred-badge">\u2605 Preferred</span>';
+      html += '</div>';
+    }
+
+    // Text/SMS link (only if player opted to share for texting)
+    if (player.contactText && player.phone) {
+      var cleanPhone2 = player.phone.replace(/[^0-9+]/g, '');
+      html += '<div>';
+      html += '<a href="sms:' + esc(cleanPhone2) + '">' + esc(player.phone) + '</a> (text)';
+      if (pref === 'text') html += ' <span class="preferred-badge">\u2605 Preferred</span>';
+      html += '</div>';
+    }
+
+    // Event pills showing which events this player is available for
+    html += '<div class="event-pills">';
+    (player.events || []).forEach(function(evt) {
+      html += '<span class="event-pill">' + esc(evt) + '</span>';
+    });
+    html += '</div>';
+
+    html += '</div>';
+    return html;
+  }
+
+  /**
+   * Renders the full player directory table for the current tab.
+   * Includes sortable column headers and accordion-expand rows.
+   * Only one row can be expanded at a time.
+   */
+  function renderTable() {
+    var players = getFilteredPlayers();
+
+    if (players.length === 0) {
+      $dashTableWrap.innerHTML = '<div class="empty-state">No players found for this event.</div>';
+      return;
+    }
+
+    var html = '<table class="player-table">';
+    html += '<thead><tr>';
+    html += '<th data-col="name">Name ' + sortArrow('name') + '</th>';
+    html += '<th data-col="skillLevel">SL ' + sortArrow('skillLevel') + '</th>';
+    html += '<th data-col="preferredContact">Preferred Contact ' + sortArrow('preferredContact') + '</th>';
+    html += '</tr></thead>';
+    html += '<tbody>';
+
+    players.forEach(function(p, idx) {
+      // Main player row (clickable to expand)
+      html += '<tr class="player-row" data-idx="' + idx + '">';
+      html += '<td>' + esc(p.name) + '</td>';
+      html += '<td><span class="sl-badge">' + esc(String(p.skillLevel)) + '</span></td>';
+      html += '<td><span class="pref-label">' + prefLabel(p.preferredContact) + '</span></td>';
+      html += '</tr>';
+
+      // Expanded detail row — only visible for the currently expanded player
+      if (state.expandedIdx === idx) {
+        html += '<tr class="expanded-row"><td colspan="3">';
+        html += buildContactDetail(p);
+        html += '</td></tr>';
+      }
+    });
+
+    html += '</tbody></table>';
+    $dashTableWrap.innerHTML = html;
+
+    // Attach click handlers to sortable column headers
+    $dashTableWrap.querySelectorAll('th[data-col]').forEach(function(th) {
+      th.addEventListener('click', function() {
+        toggleSort(th.getAttribute('data-col'));
+      });
+    });
+
+    // Attach click handlers to player rows for accordion expand/collapse
+    $dashTableWrap.querySelectorAll('tr.player-row').forEach(function(tr) {
+      tr.addEventListener('click', function() {
+        var idx = parseInt(tr.getAttribute('data-idx'), 10);
+        // Toggle: clicking the same row collapses it, clicking another expands it
+        state.expandedIdx = (state.expandedIdx === idx) ? -1 : idx;
+        renderTable();
+      });
+    });
+  }
+
+  // ==========================================================================
+  // Usage Agreement Modal (first-time directory view)
+  // ==========================================================================
+
+  /**
+   * Checks whether the user has already acknowledged the usage agreement.
+   * If not, shows the modal. The agreement is stored in localStorage so
+   * it only appears once per browser.
+   */
+  function checkUsageAgreement() {
+    if (localStorage.getItem(LS_AGREED) === 'true') return;
+    $modalUsage.classList.add('visible');
+  }
+
+  $usageAgree.addEventListener('click', function() {
+    localStorage.setItem(LS_AGREED, 'true');
+    $modalUsage.classList.remove('visible');
+  });
+
+  // ==========================================================================
+  // Profile Form Helpers
+  // ==========================================================================
+
+  /**
+   * Pre-fills the profile form with data from an existing profile object.
+   * Used when the user clicks "Edit Profile" from the dashboard.
+   *
+   * @param {Object} profile - Profile object from the API
+   */
+  function populateProfileForm(profile) {
+    if (!profile) return;
+    document.getElementById('prof-name').value = profile.name || '';
+    document.getElementById('prof-sl').value = profile.skillLevel ? String(profile.skillLevel) : '';
+    document.getElementById('prof-phone').value = profile.phone || '';
+    document.getElementById('prof-contact-email').checked = !!profile.contactEmail;
+    document.getElementById('prof-contact-phone').checked = !!profile.contactPhone;
+    document.getElementById('prof-contact-text').checked = !!profile.contactText;
+
+    // Set the correct preferred contact radio button
+    var prefRadios = document.querySelectorAll('input[name="prof-preferred"]');
+    prefRadios.forEach(function(r) {
+      r.checked = (r.value === profile.preferredContact);
+    });
+
+    // Set event checkboxes based on profile events array
+    document.querySelectorAll('.event-cb').forEach(function(cb) {
+      cb.checked = (profile.events || []).indexOf(cb.value) !== -1;
+    });
+
+    updatePhoneRequired();
+  }
+
+  /**
+   * Clears all profile form fields to their default empty state.
+   */
+  function clearProfileForm() {
+    document.getElementById('prof-name').value = '';
+    document.getElementById('prof-sl').value = '';
+    document.getElementById('prof-phone').value = '';
+    document.getElementById('prof-contact-email').checked = false;
+    document.getElementById('prof-contact-phone').checked = false;
+    document.getElementById('prof-contact-text').checked = false;
+    document.querySelectorAll('input[name="prof-preferred"]').forEach(function(r) { r.checked = false; });
+    document.querySelectorAll('.event-cb').forEach(function(cb) { cb.checked = false; });
+    hideError($profileError);
+    updatePhoneRequired();
+  }
+
+  // ==========================================================================
+  // Session Management
+  // ==========================================================================
+
+  /**
+   * Clears all localStorage session data and returns to the landing page.
+   * Called by all Logout buttons throughout the app.
+   */
+  function logout() {
+    localStorage.removeItem(LS_EMAIL);
+    localStorage.removeItem(LS_AGREED);
+    localStorage.removeItem(LS_LAST_TAB);
+    state.email = null;
+    state.profile = null;
+    state.players = [];
+    clearProfileForm();
+    showView('landing');
+  }
+
+  /**
+   * Fetches the user's profile from the API and determines the next view:
+   * - If profile exists and is complete (has name + preferredContact): show dashboard
+   * - If profile exists but is incomplete: show profile form pre-filled
+   * - If no profile: show blank profile form
+   */
+  function loadProfileAndProceed() {
+    api('getProfile', { email: state.email })
+      .then(function(res) {
+        if (!res.success) {
+          // API returned an error — default to profile form
+          showView('profile');
+          return;
+        }
+
+        if (res.found && res.profile && res.profile.name && res.profile.preferredContact) {
+          // Profile is complete — transition to dashboard (State 4)
+          state.profile = res.profile;
+          showDashboard();
+        } else if (res.found && res.profile) {
+          // Profile exists but is incomplete — pre-fill and show form (State 3)
+          state.profile = res.profile;
+          populateProfileForm(res.profile);
+          showView('profile');
+        } else {
+          // No profile found — show blank form (State 3)
+          state.profile = null;
+          clearProfileForm();
+          showView('profile');
+        }
+      })
+      .catch(function() {
+        // Network error — fall back to showing the profile form
+        showView('profile');
+      });
+  }
+
+  /**
+   * Sets up and displays the full dashboard view (State 4).
+   * Populates the profile summary, builds tabs, fetches the player
+   * list, and renders the directory table.
+   */
+  function showDashboard() {
+    showView('dashboard');
+
+    // Populate the profile summary card at the top
+    $dashName.textContent = state.profile.name;
+    $dashSL.textContent = String(state.profile.skillLevel);
+
+    // Build tabs based on user's selected events
+    buildTabs();
+
+    // Show loading state while fetching the player directory
+    $dashLoading.classList.remove('hidden');
+    $dashTableWrap.innerHTML = '';
+
+    api('getPlayerList', { email: state.email })
+      .then(function(res) {
+        $dashLoading.classList.add('hidden');
+        if (res.success) {
+          state.players = res.players || [];
+        } else {
+          state.players = [];
+        }
+        renderTable();
+
+        // Show the usage agreement modal on first directory view
+        checkUsageAgreement();
+      })
+      .catch(function() {
+        $dashLoading.classList.add('hidden');
+        state.players = [];
+        renderTable();
+      });
+  }
+
+  // ==========================================================================
+  // Initialization — boot sequence on page load
+  // ==========================================================================
+
+  /**
+   * App initialization flow:
+   *
+   * 1. Check URL for ?token= parameter (magic link arrival)
+   *    -> Verify the token with the API
+   *    -> If valid: store email in localStorage, load profile
+   *    -> If invalid/expired: show landing with error message
+   *
+   * 2. Check localStorage for stored email (returning session)
+   *    -> If found: load profile from API and proceed
+   *
+   * 3. No token, no stored email
+   *    -> Show the landing page (State 1)
+   */
+  function init() {
+    var params = new URLSearchParams(window.location.search);
+    var token = params.get('token');
+
+    if (token) {
+      // Step 1: Magic link token detected — verify it
+      // Clean the URL to remove the token from the address bar
+      window.history.replaceState({}, '', window.location.pathname);
+
+      api('verifyToken', { token: token })
+        .then(function(res) {
+          if (res.success && res.email) {
+            state.email = res.email;
+            localStorage.setItem(LS_EMAIL, res.email);
+            loadProfileAndProceed();
+          } else {
+            // Token is invalid or expired
+            showView('landing');
+            showError($landingError, res.error || 'Verification failed. Please try again.');
+          }
+        })
+        .catch(function() {
+          showView('landing');
+          showError($landingError, 'Network error during verification. Please try again.');
+        });
+      return;
+    }
+
+    // Step 2: Check for existing session in localStorage
+    var storedEmail = localStorage.getItem(LS_EMAIL);
+    if (storedEmail) {
+      state.email = storedEmail;
+      loadProfileAndProceed();
+      return;
+    }
+
+    // Step 3: No session — show landing page
+    showView('landing');
+  }
+
+  // Start the application
+  init();
+
+})();
+</script>
+</body>
+</html>
