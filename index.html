@@ -631,7 +631,7 @@ body {
        ==================================================================== -->
   <div id="state-landing" class="hidden">
     <div class="card text-center">
-      <h2 style="margin-bottom: calc(var(--spacing) * 4);">Find Your Partner</h2>
+      <h2 style="margin-bottom: calc(var(--spacing) * 4);">Find Partners & Teammates</h2>
       <p class="text-muted mb-4">
         Find partners and teammates for APA NW Challenge events.
       </p>
@@ -1813,13 +1813,14 @@ body {
   function init() {
     var params = new URLSearchParams(window.location.search);
     var token = params.get('token');
+    var tokenEmail = params.get('email') || '';
 
     if (token) {
       // Step 1: Magic link token detected — verify it
-      // Clean the URL to remove the token from the address bar
+      // Clean the URL to remove the token + email from the address bar
       window.history.replaceState({}, '', window.location.pathname);
 
-      api('verifyToken', { token: token })
+      api('verifyToken', { token: token, email: tokenEmail })
         .then(function(res) {
           if (res.success && res.email) {
             state.email = res.email;
