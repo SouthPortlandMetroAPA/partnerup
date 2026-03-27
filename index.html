@@ -754,10 +754,10 @@ body {
               <input type="checkbox" class="event-cb" value="Early Bird Scotch Doubles"> Early Bird Scotch Doubles
             </label>
             <label>
-              <input type="checkbox" class="event-cb" value="Weekender Scotch Doubles"> Weekender Scotch Doubles
+              <input type="checkbox" class="event-cb" value="3-Person Team"> 3-Person Team
             </label>
             <label>
-              <input type="checkbox" class="event-cb" value="3-Person Team"> 3-Person Team
+              <input type="checkbox" class="event-cb" value="Weekender Scotch Doubles"> Weekender Scotch Doubles
             </label>
           </div>
         </div>
@@ -783,7 +783,7 @@ body {
         <span class="sl-badge" id="dash-sl"></span>
         <div class="profile-actions">
           <button class="btn btn-outline btn-sm" id="dash-edit">Edit Profile</button>
-          <button class="btn btn-danger btn-sm" id="dash-delete">Delete Profile</button>
+          <button class="btn btn-danger btn-sm" id="dash-delete">Unregister All</button>
           <button class="btn btn-outline btn-sm" id="dash-logout">Logout</button>
         </div>
       </div>
@@ -813,8 +813,10 @@ body {
   <div class="modal">
     <h3>Share Your Contact Info</h3>
     <p>
-      By continuing, you agree to share your selected contact info with other
-      APA NW Challenge participants looking for partners.
+      By continuing, you agree to share your selected contact info with other APA NW Challenge participants looking for partners and teammates.
+    </p>
+    <p style="font-size:0.85rem;color:var(--nw-muted);">
+      Only the contact methods you selected will be visible to others.
     </p>
     <div class="modal-actions">
       <button class="btn btn-outline" id="consent-cancel">Cancel</button>
@@ -846,12 +848,12 @@ body {
   <div class="modal">
     <h3>Delete Your Profile?</h3>
     <p>
-      This will remove your profile and contact info from the player directory.
+      This will remove you from all events. Your profile info will be saved but you won't appear in the player directory.
       You can always sign up again later.
     </p>
     <div class="modal-actions">
       <button class="btn btn-outline" id="delete-cancel">Cancel</button>
-      <button class="btn btn-danger" id="delete-confirm">Delete Profile</button>
+      <button class="btn btn-danger" id="delete-confirm">Unregister All</button>
     </div>
   </div>
 </div>
@@ -882,8 +884,8 @@ body {
   /** The three tournament events, in display order */
   var EVENTS = [
     'Early Bird Scotch Doubles',
-    'Weekender Scotch Doubles',
-    '3-Person Team'
+    '3-Person Team',
+    'Weekender Scotch Doubles'
   ];
 
   /** Short labels for tab buttons to save horizontal space */
@@ -1275,7 +1277,7 @@ body {
     showView('profile');
   });
 
-  /** Delete Profile button — show the delete confirmation modal */
+  /** Unregister All button — show the delete confirmation modal */
   $dashDelete.addEventListener('click', function() {
     $modalDelete.classList.add('visible');
   });
@@ -1371,8 +1373,8 @@ body {
   /** Whether the Scotch Doubles eligible partner filter is active (default: on) */
   var scotchEligibleOnly = true;
 
-  /** Max SL filter value for 3-Person Team tab (0 = show all) */
-  var teamMaxSL = 0;
+  /** Max SL filter value for 3-Person Team tab (default 9 = show all) */
+  var teamMaxSL = 9;
 
   /**
    * Renders the appropriate filter controls for the current tab.
@@ -1402,10 +1404,6 @@ body {
       var lbl2 = document.createElement('label');
       lbl2.textContent = 'Max skill level: ';
       var sel = document.createElement('select');
-      var optAll = document.createElement('option');
-      optAll.value = '0';
-      optAll.textContent = 'All';
-      sel.appendChild(optAll);
       for (var i = 1; i <= 9; i++) {
         var opt = document.createElement('option');
         opt.value = String(i);
@@ -1452,7 +1450,7 @@ body {
     }
 
     // Step 3: Apply 3-Person Team max SL filter
-    if (tab === '3-Person Team' && teamMaxSL > 0) {
+    if (tab === '3-Person Team') {
       filtered = filtered.filter(function(p) {
         return p.skillLevel <= teamMaxSL;
       });
