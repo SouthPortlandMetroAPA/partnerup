@@ -557,7 +557,9 @@ body {
   }
 
   .profile-summary {
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
     align-items: center;
     text-align: center;
   }
@@ -1379,6 +1381,7 @@ body {
 
   /** Whether the Scotch Doubles eligible partner filter is active (default: on) */
   var scotchEligibleOnly = true;
+  var scotchMaxSL = 9;
 
   /** Max SL filter value for 3-Person Team tab (default 9 = show all) */
   var teamMaxSL = 9;
@@ -1405,6 +1408,24 @@ body {
       lbl.appendChild(cb);
       lbl.appendChild(document.createTextNode(' Eligible partners only (combined SL \u2264 11)'));
       $dashFilters.appendChild(lbl);
+
+      // Max SL dropdown for scotch doubles
+      var lbl3 = document.createElement('label');
+      lbl3.textContent = 'Max skill level: ';
+      var sel3 = document.createElement('select');
+      for (var s = 1; s <= 9; s++) {
+        var opt3 = document.createElement('option');
+        opt3.value = String(s);
+        opt3.textContent = String(s);
+        sel3.appendChild(opt3);
+      }
+      sel3.value = String(scotchMaxSL);
+      sel3.addEventListener('change', function() {
+        scotchMaxSL = parseInt(sel3.value, 10);
+        renderTable();
+      });
+      lbl3.appendChild(sel3);
+      $dashFilters.appendChild(lbl3);
 
     } else if (tab === '3-Person Team') {
       // 3-Person Team: max skill level dropdown
@@ -1453,6 +1474,13 @@ body {
       var mySL = state.profile.skillLevel || 0;
       filtered = filtered.filter(function(p) {
         return (p.skillLevel + mySL) <= 11;
+      });
+    }
+
+    // Step 2b: Apply Scotch Doubles max SL filter
+    if (tab === 'Early Bird Scotch Doubles' || tab === 'Weekender Scotch Doubles') {
+      filtered = filtered.filter(function(p) {
+        return p.skillLevel <= scotchMaxSL;
       });
     }
 
