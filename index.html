@@ -761,8 +761,16 @@ body {
               <input type="checkbox" class="event-cb" value="Early Bird Scotch Doubles"> Early Bird Scotch Doubles
             </label>
             <label>
-              <input type="checkbox" class="event-cb" value="3-Person Team"> 3-Person Team
+              <input type="checkbox" class="event-cb" value="3-Person Team" id="cb3person"> 3-Person Team
             </label>
+            <div id="threePersonRoleGroup" style="display:none;margin-left:24px;margin-top:4px;">
+              <label style="font-size:0.85rem;">
+                <input type="radio" name="threePersonRole" value="looking_for_team" checked> Looking for a team (your name will be listed)
+              </label>
+              <label style="font-size:0.85rem;">
+                <input type="radio" name="threePersonRole" value="looking_for_players"> Looking for players (browse only, not listed)
+              </label>
+            </div>
             <label>
               <input type="checkbox" class="event-cb" value="Weekender Scotch Doubles"> Weekender Scotch Doubles
             </label>
@@ -1185,6 +1193,11 @@ body {
   document.getElementById('prof-contact-phone').addEventListener('change', updatePhoneRequired);
   document.getElementById('prof-contact-text').addEventListener('change', updatePhoneRequired);
 
+  // Toggle 3-Person Team role radios when checkbox is toggled
+  document.getElementById('cb3person').addEventListener('change', function() {
+    document.getElementById('threePersonRoleGroup').style.display = this.checked ? 'block' : 'none';
+  });
+
   /** Holds profile data between form submit and consent modal confirmation */
   var pendingSaveData = null;
 
@@ -1217,9 +1230,15 @@ body {
     if (!name) return showError($profileError, 'Please enter your name.');
     if (!sl) return showError($profileError, 'Please select your skill level.');
     if (!preferred) return showError($profileError, 'Please select a preferred contact method.');
-    if (events.length === 0) return showError($profileError, 'Please select at least one event.');
     if ((contactPhone || contactText) && !phone) {
       return showError($profileError, 'Phone number is required when Phone Call or Text Message is selected.');
+    }
+
+    // 3-Person Team role
+    var threePersonRole = '';
+    if (events.indexOf('3-Person Team') !== -1) {
+      var roleEl = document.querySelector('input[name="threePersonRole"]:checked');
+      threePersonRole = roleEl ? roleEl.value : 'looking_for_team';
     }
 
     // Store data for after consent
@@ -1231,7 +1250,8 @@ body {
       contactPhone: contactPhone,
       contactText: contactText,
       preferredContact: preferred,
-      events: events
+      events: events,
+      threePersonRole: threePersonRole
     };
 
     // Show consent modal before saving
@@ -1484,6 +1504,14 @@ body {
       });
     }
 
+    // Step 2c: Hide "looking_for_players" from 3-Person Team directory
+    // These people can browse but don't want to be listed
+    if (tab === '3-Person Team') {
+      filtered = filtered.filter(function(p) {
+        return p.threePersonRole !== 'looking_for_players';
+      });
+    }
+
     // Step 3: Apply 3-Person Team max SL filter
     if (tab === '3-Person Team') {
       filtered = filtered.filter(function(p) {
@@ -1710,6 +1738,16 @@ body {
       cb.checked = (profile.events || []).indexOf(cb.value) !== -1;
     });
 
+    // 3-Person Team role radio
+    var has3person = (profile.events || []).indexOf('3-Person Team') !== -1;
+    document.getElementById('threePersonRoleGroup').style.display = has3person ? 'block' : 'none';
+    if (has3person && profile.threePersonRole) {
+      var roleRadios = document.querySelectorAll('input[name="threePersonRole"]');
+      roleRadios.forEach(function(r) {
+        r.checked = (r.value === profile.threePersonRole);
+      });
+    }
+
     updatePhoneRequired();
   }
 
@@ -1725,6 +1763,8 @@ body {
     document.getElementById('prof-contact-text').checked = false;
     document.querySelectorAll('input[name="prof-preferred"]').forEach(function(r) { r.checked = false; });
     document.querySelectorAll('.event-cb').forEach(function(cb) { cb.checked = false; });
+    document.getElementById('threePersonRoleGroup').style.display = 'none';
+    document.querySelectorAll('input[name="threePersonRole"]').forEach(function(r) { r.checked = r.value === 'looking_for_team'; });
     hideError($profileError);
     updatePhoneRequired();
   }
